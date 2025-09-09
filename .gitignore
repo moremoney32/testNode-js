@@ -1,2 +1,23 @@
-/node_modules
-/config/.env
+# Node & TypeScript
+node_modules
+dist
+.env
+.env.test
+
+# Logs & tests
+*.log
+coverage
+jest.config.js
+__mocks__/
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# IDEs & OS
+.vscode
+.DS_Store
+
+# Git
+.git
+.gitignore

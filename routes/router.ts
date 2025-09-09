@@ -58,7 +58,7 @@ router.post("/login", UserControllersLogin);
 ╚════════════════════════════════════════════════════════════════════╝
 */
 // Toutes les routes ci-dessous sont protégées (token requis)
-router.use(requireAuth);
+// router.use(requireAuth);
 
 /* 
 ╔════════════════════════════════════════════════════════════════════╗

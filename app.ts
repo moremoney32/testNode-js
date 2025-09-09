@@ -7,7 +7,7 @@ import cors, { type CorsOptions } from "cors";
 import routes from "./routes/router";
 import cookieParser from "cookie-parser";
 dotenv.config({ path: "./config/.env" });
-// connectDB();
+ connectDB();
 // Connexion à la base de données
 
 
