@@ -30,6 +30,7 @@ import {
   UserControllersVerifyCode,
   UserControllersLogin,
   logoutControllers,
+  checkSession,
 } from "../controllers/UserControllers";
 
 // import MediaControllers from "../controllers/MediaControllers";
@@ -48,7 +49,6 @@ router.post("/register", UserControllers);
 
 // 4. Vérification de code
 router.post("/verifyCode", UserControllersVerifyCode);
-
 // 5. Connexion d'un utilisateur
 router.post("/login", UserControllersLogin);
 
@@ -58,7 +58,7 @@ router.post("/login", UserControllersLogin);
 ╚════════════════════════════════════════════════════════════════════╝
 */
 // Toutes les routes ci-dessous sont protégées (token requis)
-// router.use(requireAuth);
+   router.use(requireAuth);
 
 /* 
 ╔════════════════════════════════════════════════════════════════════╗
@@ -66,7 +66,8 @@ router.post("/login", UserControllersLogin);
 ╚════════════════════════════════════════════════════════════════════╝
 */
 // 6. Vérifie la session utilisateur
-// router.get("/check-session", checkSession);
+  router.get("/check-session", checkSession);
+// router.get("/check-session", requireAuth, checkSession);
 
 // // 7. Déconnexion
 // router.get("/logout", logoutControllers);

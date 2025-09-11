@@ -25,6 +25,7 @@ export async function requireAuth(
   try {
     const payload = jwt.verify(token, process.env.secretKey!) as JwtPayload;
     req.userId = payload.userId;
+    console.log("User ID from token:", req.userId);
     return next();
   } catch (err) {
      res.status(401).json({ error: "Token invalide ou expiré" });

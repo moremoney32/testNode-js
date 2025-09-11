@@ -7,6 +7,7 @@ import { Request, Response, NextFunction } from "express";
 // import jwt from "jsonwebtoken"
 import dotenv from "dotenv";
 import { UserRegister, VerifyCode, UserLogin } from "../services/UserServices";
+import User from "../models/User";
 // import { IUser } from "../models/User"; // Type utilisateur
 
 dotenv.config({ path: "../config/.env" });
@@ -99,4 +100,32 @@ export const UserControllersLogin = async (
   } catch (err) {
     next(err);
   }
+  
 };
+
+interface AuthenticatedRequest extends Request {
+  userId?: string;
+}
+
+export async function checkSession(req: AuthenticatedRequest, res: Response): Promise<void> {
+  try {
+    const user = await User.findById(req.userId).select('firstName lastName email');
+    
+    if (!user) {
+      res.status(401).json({ authenticated: false });
+      return;
+    }
+
+    res.json({
+      authenticated: true,
+      user: {
+        firstName: user.firstName,
+        lastName:  user.lastName,
+        email:     user.email
+      }
+    });
+  } catch (error) {
+    console.error('Erreur dans checkSession:', error);
+    res.status(500).json({ authenticated: false, error: 'Erreur interne du serveur' });
+  }
+}

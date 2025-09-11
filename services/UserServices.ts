@@ -34,9 +34,6 @@ export async function UserRegister({email,password,firstName,lastName}:UserRegis
             const err = new Error(`Champ(s) manquant(s) : ${checkInput.join(", ")}`);
     (err as any).statusCode = 400;
     throw err;
-            // const err  = new Error(`Champ(s) manquant(s) ${checkInput.join(",")}`)//join Convertir un tableau en une chaîne de caractères, en concaténant ses éléments avec un séparateur spécifié.
-            // err.statusCode = 400;
-            // throw err //interrompt le flot normal et fait remonter l’erreur directement au catch du contrôleur
         }
         //Validation de la forme de l’e-mail
         if(!validator.isEmail(email)){
@@ -47,32 +44,6 @@ export async function UserRegister({email,password,firstName,lastName}:UserRegis
     (err as any).statusCode = 422;
     throw err;
         }
-        //   //  3) Vérification de la force du mot de passe
-        // const pwdOpts = {minLengt:8,minUppercase:1,minSymbols:1,minNumbers:1}
-        // if(!validator.isStrongPassword(password,pwdOpts)){
-        //     const err = new Error("Mot de passe trop faible : 8+ chars, 1 majuscule, 1 chiffre,1 symbole")
-        //     err.statusCode = 422
-        //     throw err
-        // }
-        // //  4) On s’assure qu’aucun utilisateur n’existe déjà avec cet e-mail
-        // if(await User.exists({email})){
-        //     const err = new Error("Cette adresse e-mail est déjà utilisée");
-        //     err.statusCode = 409;             
-        //     throw err;
-        // } 
-        //  //5) Tout est OK, on hash le mot de passe
-        //  const hasPwd = await bcrypt.hash(password,10);
-        //  const code = String(Math.floor(1000 + Math.random() * 9000));    // 4 chiffres
-        // const expires = new Date(Date.now() + 10 * 60 * 1000);            // +10 minutes
-        //  // 6) Puis on crée et renvoie l’utilisateur
-        // const user = await User.create({
-        //     email,
-        //     password:hasPwd,
-        //     firstName,lastName,
-        //     verificationCode:code,
-        //     verificationDate: expires
-        //  })
-        //   await sendVerificationEmail(email, code);
          const pwdOpts = { minLength: 8, minUppercase: 1, minSymbols: 1, minNumbers: 1 };
   if (!validator.isStrongPassword(password, pwdOpts)) {
     const err = new Error("Mot de passe trop faible : 8+ chars, 1 majuscule, 1 chiffre, 1 symbole");
@@ -98,8 +69,7 @@ export async function UserRegister({email,password,firstName,lastName}:UserRegis
     verificationCode: code,
     verificationDate: expires,
   });
-
-  await sendVerificationEmail(email, code);
+   await sendVerificationEmail(email, code);
   return user;
 }
 // async function VerifyCode({email,code}){
