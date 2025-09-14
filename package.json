@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "nodemon server.ts",
     "start": "node dist/server.js",
+    "build": "tsc",
     "test": "jest --config jest.config.ts",
     "test:unit": "jest --config jest.config.ts tests/unit",
     "test:e2e": "jest --config jest.config.ts tests/e2e"
