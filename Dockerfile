@@ -18,5 +18,4 @@ COPY package*.json ./
 RUN npm install --omit=dev
 
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/config ./config  # pour les .env ou autres configs
 CMD ["npm", "start"]
