@@ -1,0 +1,37 @@
+
+
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo
+    container_name: testnode-js-mongo
+    restart: always
+    networks:
+      - app-network
+    volumes:
+      - mongo-data:/data/db
+    # ❌ PAS de ports exposés = sécurité en prod
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: francklionel/afri-backend:latest  
+    container_name: testnode-js-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000" # ✅ Oui, tu dois le laisser car le client doit accéder à ton API
+    env_file:
+      - ./config/.env
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+
+networks:
+  app-network:
+
