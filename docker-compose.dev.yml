@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo
+    container_name: dev-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-dev-data:/data/db
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: dev-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - ./config/.env
+    depends_on:
+      - mongo
+    command: npm run dev
+
+volumes:
+  mongo-dev-data:

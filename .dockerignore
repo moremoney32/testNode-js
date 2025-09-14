@@ -1,0 +1,11 @@
+node_modules
+dist
+tests
+e2e
+.env
+*.test.ts
+coverage
+.vscode
+*.log
+Dockerfile
+docker-compose.yml

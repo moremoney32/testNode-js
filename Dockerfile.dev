@@ -1,0 +1,20 @@
+# Utiliser Node officiel
+FROM node:20
+
+# Dossier de travail
+WORKDIR /app
+
+# Copier d'abord les fichiers de dépendances
+COPY package.json package-lock.json* ./
+
+# ✅ Installer TOUTES les dépendances (y compris dev)
+RUN npm install
+
+# Ensuite copier le reste
+COPY . .
+
+# Exposer le port de l'app
+EXPOSE 3001
+
+# Lancer l'app en mode dev
+CMD ["npm", "run", "dev"]
