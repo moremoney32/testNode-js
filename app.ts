@@ -34,7 +34,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 app.get("/", (req, res) => {
-  res.send("🚀 Backend MERN Dockerisé fonctionne !");
+  res.send("🚀 automatisation !");
 });
 
 // Routes
