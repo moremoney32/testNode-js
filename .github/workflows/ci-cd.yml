@@ -22,3 +22,7 @@ jobs:
 
       - name: Push Docker image
         run: docker push francklionel/afri-backend:latest
+
+      - name: Deploy to Render
+        run: |
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
